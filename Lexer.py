@@ -8,10 +8,12 @@ entradas = input("metala: ")
 tokens = [
     "DEFVAR", "DEFPROC", "VAR", "NUM", "IF", "ELSE", "WHILE", "REPEAT", "TIMES", "JUMP", "WALK",
     "LEAP", "TURN", "TURNTO", "DROP", "GET", "GRAB", "LETGO", "NOP", "EQUALS", "LEFTPAR",
-    "RIGHTPAR", "COMMA", "SEMICOL", "FACING", "CAN", "NOT", "ORIENTATION", "DIRECTION", "LEFTBRACE", "RIGHTBRACE"]
+    "RIGHTPAR", "COMMA", "SEMICOL", "FACING", "CAN", "NOT", "LEFTBRACE", "RIGHTBRACE"]
 
 #---Recognize control structures---#
 
+t_DEFVAR = r'DEFVAR'
+t_DEFPROC = r'DEFPROC'
 t_IF = r'IF'
 t_ELSE = r'ELSE'
 t_WHILE = r'WHILE'
@@ -28,14 +30,6 @@ t_NOT = r'NOT'
 t_LEFTBRACE = r'\{'
 t_RIGHTBRACE = r'\}'
 t_ignore = ' \t'
-
-def t_DEFVAR(word):
-    r'DEFVAR'
-    return word
-
-def t_DEFPROC(word):
-    r'DEFPROC'
-    return word
 
 #----Recognize tokens (procedures)----#
 
