@@ -8,7 +8,7 @@ entradas = input("metala: ")
 tokens = [
     "DEFVAR", "DEFPROC", "VAR", "NUM", "IF", "ELSE", "WHILE", "REPEAT", "TIMES", "JUMP", "WALK",
     "LEAP", "TURN", "TURNTO", "DROP", "GET", "GRAB", "LETGO", "NOP", "EQUALS", "LEFTPAR",
-    "RIGHTPAR", "COMMA", "SEMICOL", "FACING", "CAN", "NOT", "LEFTBRACE", "RIGHTBRACE"]
+    "RIGHTPAR", "COMMA", "SEMICOL", "FACING", "CAN", "NOT", "ORIENTATION", "DIRECTION", "LEFTBRACE", "RIGHTBRACE"]
 
 #---Recognize control structures---#
 
