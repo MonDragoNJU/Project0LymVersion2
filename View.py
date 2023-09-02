@@ -4,5 +4,7 @@ def main():
     print()
     
     file = input("Insert the path of the file you want to read: ")
+
+    
     
     
