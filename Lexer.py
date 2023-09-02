@@ -148,7 +148,7 @@ def t_NUM(word):
 
 #---Message of error---#
 def t_error(word):
-    print("An invalid character was found: " + str(word.value[0]) + "at position" + str(word.lexpos))
+    print("An invalid character was found: " + " " + str(word.value[0]) + " " +"at position" + " " + str(word.lexpos))
     word.lexer.skip(1)
 
 #Create the lexer
