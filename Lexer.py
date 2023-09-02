@@ -12,8 +12,6 @@ tokens = [
 
 #---Recognize control structures---#
 
-t_DEFVAR = r'DEFVAR'
-t_DEFPROC = r'DEFPROC'
 t_IF = r'IF'
 t_ELSE = r'ELSE'
 t_WHILE = r'WHILE'
@@ -30,6 +28,14 @@ t_NOT = r'NOT'
 t_LEFTBRACE = r'\{'
 t_RIGHTBRACE = r'\}'
 t_ignore = ' \t'
+
+def t_DEFVAR(word):
+    r'DEFVAR'
+    return word
+
+def t_DEFPROC(word):
+    r'DEFPROC'
+    return word
 
 #----Recognize tokens (procedures)----#
 
