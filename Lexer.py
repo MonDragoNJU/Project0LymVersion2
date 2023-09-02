@@ -156,10 +156,18 @@ lexer = lex.lex()
 
 def tokenize_file(phrases):
     
+    #tokens_line = []
+
     for line in phrases:
         lexer.input(line)
         for token in lexer:
+
+            #añadir token.type a la lista tokens_line.append(token.type)
+    
+    #return tokens_line
+
             print(token)
+            print(token.type)
 
 
     
