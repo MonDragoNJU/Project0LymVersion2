@@ -2,18 +2,25 @@ import Lexer as lexer
 
 def read_file(file_name: str):
     
+    phrases = []
+    
     file = open(file_name, "r", encoding="utf-8")
     
     line = file.readline()
-    line = line.replace("\n", " ")
     
-    line = line.lower()
+    while line != '':
+        line = line.replace("\n", " ")
+        line = line.lower()
+        phrases.append(line)
+        line = file.readline()
     
     file.close()
     
-    return line
+    return phrases
 
-print(read_file("Test.txt"))
+lexer.tokenize_file(read_file("Test.txt"))
+
+
     
     
     

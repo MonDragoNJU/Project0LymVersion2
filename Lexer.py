@@ -1,7 +1,5 @@
 import ply.lex as lex
 
-entradas = input("metala: ").lower()
-
 
 
 #List of tokens
@@ -119,7 +117,7 @@ def t_GRAB(word):
     return word
 
 def t_LETGO(word):
-    r'letGo'
+    r'letgo'
     return word
 
 def t_NOP(word):
@@ -156,10 +154,12 @@ def t_error(word):
 #Create the lexer
 lexer = lex.lex()
 
-
-lexer.input(entradas)
-for token in lexer:
-    print(token)
+def tokenize_file(phrases):
+    
+    for line in phrases:
+        lexer.input(line)
+        for token in lexer:
+            print(token)
 
 
     
