@@ -9,7 +9,8 @@ entradas = input("metala: ").lower()
 tokens = [
     "DEFVAR", "DEFPROC", "VAR", "NUM", "IF", "ELSE", "WHILE", "REPEAT", "TIMES", "JUMP", "WALK",
     "LEAP", "TURN", "TURNTO", "DROP", "GET", "GRAB", "LETGO", "NOP", "EQUALS", "LEFTPAR",
-    "RIGHTPAR", "COMMA", "SEMICOL", "FACING", "CAN", "NOT", "LEFTBRACE", "RIGHTBRACE"]
+    "RIGHTPAR", "COMMA", "SEMICOL", "FACING", "CAN", "NOT", "LEFTBRACE", "RIGHTBRACE", "ORIENTATION",
+    "DIRECTION"]
 
 #---Recognize control structures---#
 
