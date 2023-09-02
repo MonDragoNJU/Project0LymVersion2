@@ -16,9 +16,8 @@ def read_file(file_name: str):
     
     file.close()
     
-    return phrases
-
-lexer.tokenize_file(read_file("Test.txt"))
+    lexer.tokenize_file(phrases)
+    
 
 
     
