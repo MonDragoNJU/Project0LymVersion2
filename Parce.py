@@ -13,7 +13,7 @@ def read_file(file_name: str):
     
     return line
 
-print(read_file("LyM\Test.txt"))
+print(read_file("Test.txt"))
     
     
     
