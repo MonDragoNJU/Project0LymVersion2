@@ -2,6 +2,7 @@ import Parce as parser
 
 def main():
     
+    print()
     print("Welcome to the syntax checker of the robot program.")
     print()
     
