@@ -1,6 +1,7 @@
 import ply.lex as lex
 
-entradas = input("metala: ")
+entradas = input("metala: ").lower()
+
 
 
 #List of tokens
@@ -12,24 +13,75 @@ tokens = [
 
 #---Recognize control structures---#
 
-t_DEFVAR = r'DEFVAR'
-t_DEFPROC = r'DEFPROC'
-t_IF = r'IF'
-t_ELSE = r'ELSE'
-t_WHILE = r'WHILE'
-t_REPEAT = r'REPEAT'
-t_TIMES = r'TIMES'
-t_EQUALS = r'='
-t_LEFTPAR = r'\('
-t_RIGHTPAR = r'\)'
-t_COMMA = r','
-t_SEMICOL = r';'
-t_FACING = r'FACING'
-t_CAN = r'CAN'
-t_NOT = r'NOT'
-t_LEFTBRACE = r'\{'
-t_RIGHTBRACE = r'\}'
+def t_IF(word):
+    r'if'
+    return word
+
+def t_ELSE(word):
+    r'else'
+    return word
+
+def t_WHILE(word):
+    r'while'
+    return word
+
+def t_REPEAT(word):
+    r'repeat'
+    return word
+
+def t_TIMES(word):
+    r'times'
+    return word
+
+def t_EQUALS(word):
+    r'='
+    return word
+
+def t_LEFTPAR(word):
+    r'\('
+    return word
+
+def t_RIGHTPAR(word):
+    r'\)'
+    return word
+
+def t_COMMA(word):
+    r','
+    return word
+
+def t_SEMICOL(word):
+    r';'
+    return word
+
+def t_FACING(word):
+    r'facing'
+    return word
+
+def t_CAN(word):
+    r'can'
+    return word
+
+def t_NOT(word):
+    r'not'
+    return word
+
+def t_LEFTBRACE(word):
+    r'\{'
+    return word
+
+def t_RIGHTBRACE(word):
+    r'\}'
+    return word
+
 t_ignore = ' \t'
+
+def t_DEFVAR(word):
+    r'DEFVAR'
+    return word
+
+def t_DEFPROC(word):
+    r'DEFPROC'
+    return word
 
 #----Recognize tokens (procedures)----#
 
