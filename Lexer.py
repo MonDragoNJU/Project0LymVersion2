@@ -16,6 +16,7 @@ t_else = r'else'
 t_while = r'while'
 t_repeat = r'repeat'
 t_times = r'times'
+t_ignore = ' \t'
 
 #----Recognize tokens (procedures)----#
 
@@ -33,6 +34,14 @@ def t_LEAP(word):
 
 def t_TURN(word):
     r'turn'
+    return word
+
+def t_TURNTO(word):
+    r'turnto'
+    return word
+
+def t_DROP(word):
+    r'drop'
     return word
 
 def t_GET(word):
@@ -58,8 +67,6 @@ def t_ORIENTATION(word):
 def t_DIRECTION(word):
     r'front|back|right|left'
     return word
-
-
 
 
 #---Recognize tokens (variables)---#
