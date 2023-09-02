@@ -6,5 +6,5 @@ def main():
     file = input("Insert the path of the file you want to read: ")
 
     
-    
+main()    
     
