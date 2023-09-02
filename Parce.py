@@ -22,9 +22,10 @@ def read_file(file_name: str):
     
     while i < len(phrases):
         
-        tok_phrase = lexer.tokenize_file(phrases[i])
-        all_phrases.append(tok_phrase)
-        rules.analize_variable(tok_phrase)
+        tokened_phrase = lexer.tokenize_file(phrases[i])
+        all_phrases.append(tokened_phrase)
+        rules.analize_variable(tokened_phrase)
+        
         
 
     #recorrido sobre la matriz de tokenized_code
