@@ -76,11 +76,11 @@ def t_RIGHTBRACE(word):
 t_ignore = ' \t'
 
 def t_DEFVAR(word):
-    r'DEFVAR'
+    r'defvar'
     return word
 
 def t_DEFPROC(word):
-    r'DEFPROC'
+    r'defproc'
     return word
 
 #----Recognize tokens (procedures)----#
