@@ -1,29 +1,32 @@
 import ply.lex as lex
 
+entradas = input("metala: ")
+
+
 #List of tokens
 
 tokens = [
-    "DEFVAR", "DEFPROC", "VAR", "NUM", "IF", "ELSE", "WHILE", "REPEAT", "JUMP", "WALK",
+    "DEFVAR", "DEFPROC", "VAR", "NUM", "IF", "ELSE", "WHILE", "REPEAT", "TIMES", "JUMP", "WALK",
     "LEAP", "TURN", "TURNTO", "DROP", "GET", "GRAB", "LETGO", "NOP", "EQUALS", "LEFTPAR",
     "RIGHTPAR", "COMMA", "SEMICOL", "FACING", "CAN", "NOT", "LEFTBRACE", "RIGHTBRACE"]
 
 #---Recognize control structures---#
 
-t_defVar = r'defVar'
-t_defProc = r'defProc'
-t_IF = r'if'
-t_ELSE = r'else'
-t_WHILE = r'while'
-t_REPEAT = r'repeat'
-t_TIMES = r'times'
+t_DEFVAR = r'DEFVAR'
+t_DEFPROC = r'DEFPROC'
+t_IF = r'IF'
+t_ELSE = r'ELSE'
+t_WHILE = r'WHILE'
+t_REPEAT = r'REPEAT'
+t_TIMES = r'TIMES'
 t_EQUALS = r'='
 t_LEFTPAR = r'\('
 t_RIGHTPAR = r'\)'
 t_COMMA = r','
 t_SEMICOL = r';'
-t_FACING = r'facing'
-t_CAN = r'can'
-t_NOT = r'not'
+t_FACING = r'FACING'
+t_CAN = r'CAN'
+t_NOT = r'NOT'
 t_LEFTBRACE = r'\{'
 t_RIGHTBRACE = r'\}'
 t_ignore = ' \t'
@@ -98,8 +101,12 @@ def t_error(word):
     word.lexer.skip(1)
 
 #Create the lexer
-lexer = lex.lex
+lexer = lex.lex()
 
+
+lexer.input(entradas)
+for token in lexer:
+    print(token)
 
 
     
