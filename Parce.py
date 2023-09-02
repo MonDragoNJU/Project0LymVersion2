@@ -1,8 +1,12 @@
 import Lexer as lexer
+import Rules as rules
+
+all_phrases = []
 
 def read_file(file_name: str):
     
     phrases = []
+    i = 0
     
     file = open(file_name, "r", encoding="utf-8")
     
@@ -15,17 +19,15 @@ def read_file(file_name: str):
         line = file.readline()
     
     file.close()
-
-    #otro recorrido sobre phrases para irlo metiendo en tokens_line = lexer.tokenize_file(lineaDePhrases)
-
-    #eso nos va a regresar la lista de tokens de cada linea
-
-    #cada lista de tokens la vamos metiendo en una lista que se llame tokenized_code = [[],[],[],[]]
+    
+    while i < len(phrases):
+        
+        tok_phrase = lexer.tokenize_file(phrases[i])
+        all_phrases.append(tok_phrase)
+        rules.analize_variable(tok_phrase)
+        
 
     #recorrido sobre la matriz de tokenized_code
-
-    
-    lexer.tokenize_file(phrases)
 
     
     

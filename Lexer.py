@@ -1,3 +1,4 @@
+
 import ply.lex as lex
 
 
@@ -154,28 +155,13 @@ def t_error(word):
 #Create the lexer
 lexer = lex.lex()
 
-def tokenize_file(phrases):
+def tokenize_file(phrase) -> list:
     
-    #tokens_line = []
+    tokens_line = []
 
-    for line in phrases:
-        lexer.input(line)
-        for token in lexer:
-
-            #añadir token.type a la lista tokens_line.append(token.type)
-    
-    #return tokens_line
-
-            print(token)
-            print(token.type)
-
-
-    
-    
-
- 
-
-
-
-
-
+    lexer.input(phrase)
+    for token in lexer:
+        tokens_line.append(token.type)
+        
+    return tokens_line
+            
