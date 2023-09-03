@@ -53,10 +53,14 @@ def analize_commands(tokened_phrase: list):
     checker_bool = True
 
     if tokened_phrase[0] == "JUMP":
-        if tokened_phrase[1] != "LEFTPAR" or (tokened_phrase[2] != "NUM" and tokened_phrase[2] != "VAR") or tokened_phrase[3] != "COMMA" or (tokened_phrase[4] != "NUM" and tokened_phrase[4] != "VAR") or tokened_phrase[5] != "RIGHTPAR":
+        try:
+            if tokened_phrase[1] != "LEFTPAR" or (tokened_phrase[2] != "NUM" and tokened_phrase[2] != "VAR") or tokened_phrase[3] != "COMMA" or (tokened_phrase[4] != "NUM" and tokened_phrase[4] != "VAR") or tokened_phrase[5] != "RIGHTPAR":
+                checker_bool = False
+        except:
             checker_bool = False
 
     elif tokened_phrase[0] == "WALK":
+
         if len(tokened_phrase) == 4:
             if tokened_phrase[1] != "LEFTPAR" or (tokened_phrase[2] != "NUM" and tokened_phrase[2] != "VAR") or tokened_phrase[3] != "RIGHTPAR":
                 checker_bool = False
@@ -66,4 +70,87 @@ def analize_commands(tokened_phrase: list):
         else:
             checker_bool = False
 
-    #elif tokened_phrase[0] == "LEAP":
+    elif tokened_phrase[0] == "LEAP":
+        if len(tokened_phrase) == 4:
+             if tokened_phrase[1] != "LEFTPAR" or (tokened_phrase[2] != "NUM" and tokened_phrase[2] != "VAR") or tokened_phrase[3] != "RIGHTPAR":
+                checker_bool = False
+        elif len(tokened_phrase) == 6:
+            if tokened_phrase[1] != "LEFTPAR" or (tokened_phrase[2] != "NUM" and tokened_phrase[2] != "VAR") or tokened_phrase[3] != "COMMA" or (tokened_phrase[4] != "DIRECTION" and tokened_phrase[4] != "ORIENTATION") or tokened_phrase[5] != "RIGHTPAR":
+                checker_bool = False
+        else:
+            checker_bool = False
+
+    elif tokened_phrase[0] == "TURN":
+        try:
+            if tokened_phrase[1] != "LEFTPAR" or tokened_phrase[2] != "DIRECTION" or tokened_phrase[3] != "RIGHTPAR":
+                checker_bool = False
+        except:
+            checker_bool = False
+            
+    elif tokened_phrase[0] == "TURNTO":
+        try: 
+            if tokened_phrase[1] != "LEFTPAR" or tokened_phrase[2] != "ORIENTATION" or tokened_phrase[3] != "RIGHTPAR":
+                checker_bool = False
+        except:
+            checker_bool = False
+
+    elif tokened_phrase[0] == "DROP":
+        try:
+            if tokened_phrase[1] != "LEFTPAR" or (tokened_phrase[2] != "NUM" and tokened_phrase[2] != "VAR") or tokened_phrase[3] != "RIGHTPAR":
+                    checker_bool = False
+        except:
+            checker_bool = False
+    
+    elif tokened_phrase[0] == "GET":
+        try:
+            if tokened_phrase[1] != "LEFTPAR" or (tokened_phrase[2] != "NUM" and tokened_phrase[2] != "VAR") or tokened_phrase[3] != "RIGHTPAR":
+                checker_bool = False
+        except:
+            checker_bool = False
+
+    elif tokened_phrase[0] == "GRAB":
+        try: 
+            if tokened_phrase[1] != "LEFTPAR" or (tokened_phrase[2] != "NUM" and tokened_phrase[2] != "VAR") or tokened_phrase[3] != "RIGHTPAR":
+                checker_bool = False
+        except:
+            checker_bool = False
+    
+    elif tokened_phrase[0] == "LETGO":
+        try:
+            if tokened_phrase[1] != "LEFTPAR" or (tokened_phrase[2] != "NUM" and tokened_phrase[2] != "VAR") or tokened_phrase[3] != "RIGHTPAR":
+                checker_bool = False
+        except:
+            checker_bool = False
+
+    elif tokened_phrase[0] == "NOP":
+        try:
+            if tokened_phrase[1] != "LEFTPAR" or tokened_phrase[2] != "RIGHTPAR":
+                checker_bool = False
+        except:
+            checker_bool = False
+
+    else: 
+        checker_bool = False
+
+    return checker_bool
+
+def analize_condition(tokened_phrase: list):
+
+    checker_bool = True
+    
+    if tokened_phrase[0] == "FACING":
+        try: 
+            if tokened_phrase[1] != "LEFTPAR" or tokened_phrase[2] != "ORIENTATION" or tokened_phrase[3] != "RIGHTPAR":
+                checker_bool = False
+        except:
+            checker_bool = False
+
+    #elif tokened_phrase[0] == "CAN":
+        
+
+    #elif tokened_phrase[0] == "NOT":
+
+    else:
+        checker_bool = False
+    
+    return checker_bool
