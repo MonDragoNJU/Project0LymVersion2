@@ -1,9 +1,9 @@
 def general_analizer(tokened_phrase: list):
     
     if tokened_phrase[0] == "DEFVAR":
-        analize_variable(tokened_phrase)
+        return analize_variable(tokened_phrase)
     elif tokened_phrase[0] == "DEFPROC":
-        analize_procedure(tokened_phrase)
+        return analize_procedure(tokened_phrase)
     
 
 def analize_variable(tokened_phrase: list):
@@ -38,8 +38,10 @@ def analize_procedure(tokened_phrase: list):
                         else:
                             if sliced_list[i] != "COMMA":
                                 checker_bool = False
+                        i += 1
         
-    return checker_bool
+    print(checker_bool) 
+analize_procedure(['DEFPROC', 'VAR', 'LEFTPAR', 'VAR', 'COMMA', 'VAR', 'RIGHTPAR'])
                     
                     
     
