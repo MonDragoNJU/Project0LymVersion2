@@ -1,6 +1,8 @@
 import Lexer as lexer
 import Rules as rules
 
+
+
 all_phrases = []
 
 def read_file(file_name: str):
