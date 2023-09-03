@@ -9,7 +9,7 @@ tokens = [
     "DEFVAR", "DEFPROC", "VAR", "NUM", "IF", "ELSE", "WHILE", "REPEAT", "TIMES", "JUMP", "WALK",
     "LEAP", "TURN", "TURNTO", "DROP", "GET", "GRAB", "LETGO", "NOP", "EQUALS", "LEFTPAR",
     "RIGHTPAR", "COMMA", "SEMICOL", "FACING", "CAN", "NOT", "LEFTBRACE", "RIGHTBRACE", "ORIENTATION",
-    "DIRECTION"]
+    "DIRECTION", "COLON"]
 
 #---Recognize control structures---#
 
@@ -51,6 +51,10 @@ def t_COMMA(word):
 
 def t_SEMICOL(word):
     r';'
+    return word
+
+def t_COLON(word):
+    r":"
     return word
 
 def t_FACING(word):
