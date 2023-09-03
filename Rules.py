@@ -25,24 +25,33 @@ def analize_procedure(tokened_phrase: list):
         if tokened_phrase[2] != "LEFTPAR" and tokened_phrase[len(tokened_phrase) - 1] != "RIGHTPAR":
             checker_bool = False
         else:
-            if tokened_phrase[3] != "RIGHTPAR":
-                if tokened_phrase[len(tokened_phrase) - 2] != "VAR":
-                    checker_bool = False
-                else:
-                    sliced_list = tokened_phrase[3: len(tokened_phrase) - 2]
-                    i = 0
-                    while i < len(sliced_list) and checker_bool:
-                        if i % 2 == 0:
-                            if sliced_list[i] != "VAR":
-                                checker_bool = False
-                        else:
-                            if sliced_list[i] != "COMMA":
-                                checker_bool = False
-                        i += 1
+            try:
+                if tokened_phrase[3] != "RIGHTPAR":
+                    if tokened_phrase[len(tokened_phrase) - 2] != "VAR":
+                        checker_bool = False
+                    else:
+                        sliced_list = tokened_phrase[3: len(tokened_phrase) - 2]
+                        i = 0
+                        while i < len(sliced_list) and checker_bool:
+                            if i % 2 == 0:
+                                if sliced_list[i] != "VAR":
+                                    checker_bool = False
+                            else:
+                                if sliced_list[i] != "COMMA":
+                                    checker_bool = False
+                            i += 1
+            except:
+                checker_bool = False
         
-    print(checker_bool) 
-analize_procedure(['DEFPROC', 'VAR', 'LEFTPAR', 'VAR', 'COMMA', 'VAR', 'RIGHTPAR'])
-                    
-                    
+    return checker_bool 
+
+def analize_condictional(tokened_phrase: list):
+    pass
+
+def analize_commands(tokened_phrase: list):
+    if tokened_phrase[0] == jump:
+        
+        
+ 
     
     

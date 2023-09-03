@@ -1,1 +1,1 @@
-defProc prueba(d, f)
+defProc prueba(,)

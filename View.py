@@ -7,9 +7,11 @@ def main():
     print()
     
     file = input("Insert the path of the file you want to read: ")
-    parser.read_file(file)
+    answer = parser.read_file(file)
+    
+    print(answer)
 
     
     
-#main()    
+main()    
     

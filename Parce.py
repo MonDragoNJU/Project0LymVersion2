@@ -8,7 +8,6 @@ all_phrases = []
 def read_file(file_name: str):
     
     phrases = []
-    i = 0
     
     file = open(file_name, "r", encoding="utf-8")
     
@@ -22,11 +21,16 @@ def read_file(file_name: str):
     
     file.close()
     
-    while i < len(phrases):
+    i = 0
+    bool_parser = True
+    
+    while i < len(phrases) and bool_parser:
         
         tokened_phrase = lexer.tokenize_file(phrases[i])
         all_phrases.append(tokened_phrase)
-        print(rules.general_analizer(tokened_phrase))
+        bool_parser = rules.general_analizer(tokened_phrase)
+
+    return bool_parser
         
         
 
