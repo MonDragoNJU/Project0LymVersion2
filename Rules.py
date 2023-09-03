@@ -149,7 +149,7 @@ def analize_condition(tokened_phrase: list):
         
 
     #elif tokened_phrase[0] == "NOT":
-
+    
     else:
         checker_bool = False
     
