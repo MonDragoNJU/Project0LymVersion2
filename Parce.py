@@ -28,7 +28,7 @@ def read_file(file_name: str):
         
         tokened_phrase = lexer.tokenize_file(phrases[i])
         all_phrases.append(tokened_phrase)
-        bool_parser = rules.general_analizer(tokened_phrase)
+        bool_parser = rules.general_analyzer(tokened_phrase)
 
     return bool_parser
         

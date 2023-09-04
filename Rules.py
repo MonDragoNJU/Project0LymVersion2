@@ -1,52 +1,52 @@
-def general_analizer(tokened_phrase: list):
+def general_analyzer(tokenized_phrase: list):
 
     tokens_commands = ["JUMP", "WALK", "LEAP", "TURN", "TURNTO", "DROP", "GET", "GRAB", "LETGO", "NOP", "EQUALS"]
     
-    if tokened_phrase[0] == "DEFVAR":
-        return analize_variable(tokened_phrase)
-    elif tokened_phrase[0] == "DEFPROC":
-        return analize_procedure(tokened_phrase)
-    elif tokened_phrase[0] == "WHILE":
-        return analize_while(tokened_phrase)
-    elif tokened_phrase[0] == "REPEAT":
-        return analize_repeat(tokened_phrase)
-    elif tokened_phrase[0] == "VAR":
-        return analize_equality(tokened_phrase)
-    elif tokened_phrase[0] in tokens_commands:
-        return analize_commands(tokened_phrase)
-    elif tokened_phrase[0] == 'IF':
-        return analyze_conditionals(tokened_phrase)
+    if tokenized_phrase[0] == "DEFVAR":
+        return analyze_variable(tokenized_phrase)
+    elif tokenized_phrase[0] == "DEFPROC":
+        return analyze_procedure(tokenized_phrase)
+    elif tokenized_phrase[0] == "WHILE":
+        return analyze_while(tokenized_phrase)
+    elif tokenized_phrase[0] == "REPEAT":
+        return analyze_repeat(tokenized_phrase)
+    elif tokenized_phrase[0] == "VAR":
+        return analyze_equality(tokenized_phrase)
+    elif tokenized_phrase[0] in tokens_commands:
+        return analyze_commands(tokenized_phrase)
+    elif tokenized_phrase[0] == 'IF':
+        return analyze_conditionals(tokenized_phrase)
     
     
 #SIRVE
-def analize_variable(tokened_phrase: list):
+def analyze_variable(tokenized_phrase: list):
     
     checker_bool = True
 
-    if len(tokened_phrase) != 3:
+    if len(tokenized_phrase) != 3:
         checker_bool = False
     else:
-        if tokened_phrase[1] != "VAR" or (tokened_phrase[2] != "VAR" and tokened_phrase[2] != "NUM"):
+        if tokenized_phrase[1] != "VAR" or (tokenized_phrase[2] != "VAR" and tokenized_phrase[2] != "NUM"):
             checker_bool = False
         
     return checker_bool
 
-def analize_procedure(tokened_phrase: list):
+def analyze_procedure(tokenized_phrase: list):
     
     checker_bool = True
     
-    if tokened_phrase[1] != 'VAR':
+    if tokenized_phrase[1] != 'VAR':
         checker_bool = False
     else:
-        if tokened_phrase[2] != "LEFTPAR" and tokened_phrase[len(tokened_phrase) - 1] != "RIGHTPAR":
+        if tokenized_phrase[2] != "LEFTPAR" and tokenized_phrase[len(tokenized_phrase) - 1] != "RIGHTPAR":
             checker_bool = False
         else:
             try:
-                if tokened_phrase[3] != "RIGHTPAR":
-                    if tokened_phrase[len(tokened_phrase) - 2] != "VAR":
+                if tokenized_phrase[3] != "RIGHTPAR":
+                    if tokenized_phrase[len(tokenized_phrase) - 2] != "VAR":
                         checker_bool = False
                     else:
-                        sliced_list = tokened_phrase[3: len(tokened_phrase) - 2]
+                        sliced_list = tokenized_phrase[3: len(tokenized_phrase) - 2]
                         i = 0
                         while i < len(sliced_list) and checker_bool:
                             if i % 2 == 0:
@@ -63,83 +63,83 @@ def analize_procedure(tokened_phrase: list):
                     
     
 #SIRVE
-def analize_commands(tokened_phrase: list):
+def analyze_commands(tokenized_phrase: list):
 
     checker_bool = True
 
-    if tokened_phrase[0] == "JUMP":
+    if tokenized_phrase[0] == "JUMP":
         try:
-            if tokened_phrase[1] != "LEFTPAR" or (tokened_phrase[2] != "NUM" and tokened_phrase[2] != "VAR") or tokened_phrase[3] != "COMMA" or (tokened_phrase[4] != "NUM" and tokened_phrase[4] != "VAR") or tokened_phrase[5] != "RIGHTPAR":
+            if tokenized_phrase[1] != "LEFTPAR" or (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR") or tokenized_phrase[3] != "COMMA" or (tokenized_phrase[4] != "NUM" and tokenized_phrase[4] != "VAR") or tokenized_phrase[5] != "RIGHTPAR":
                 checker_bool = False
         except:
             checker_bool = False
 
-    elif tokened_phrase[0] == "WALK":
+    elif tokenized_phrase[0] == "WALK":
 
-        if len(tokened_phrase) == 4:
-            if tokened_phrase[1] != "LEFTPAR" or (tokened_phrase[2] != "NUM" and tokened_phrase[2] != "VAR") or tokened_phrase[3] != "RIGHTPAR":
+        if len(tokenized_phrase) == 4:
+            if tokenized_phrase[1] != "LEFTPAR" or (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR") or tokenized_phrase[3] != "RIGHTPAR":
                 checker_bool = False
-        elif len(tokened_phrase) == 6:
-            if tokened_phrase[1] != "LEFTPAR" or (tokened_phrase[2] != "NUM" and tokened_phrase[2] != "VAR") or tokened_phrase[3] != "COMMA" or (tokened_phrase[4] != "DIRECTION" and tokened_phrase[4] != "ORIENTATION") or tokened_phrase[5] != "RIGHTPAR":
+        elif len(tokenized_phrase) == 6:
+            if tokenized_phrase[1] != "LEFTPAR" or (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR") or tokenized_phrase[3] != "COMMA" or (tokenized_phrase[4] != "DIRECTION" and tokenized_phrase[4] != "ORIENTATION") or tokenized_phrase[5] != "RIGHTPAR":
                 checker_bool = False
         else:
             checker_bool = False
 
-    elif tokened_phrase[0] == "LEAP":
-        if len(tokened_phrase) == 4:
-             if tokened_phrase[1] != "LEFTPAR" or (tokened_phrase[2] != "NUM" and tokened_phrase[2] != "VAR") or tokened_phrase[3] != "RIGHTPAR":
+    elif tokenized_phrase[0] == "LEAP":
+        if len(tokenized_phrase) == 4:
+             if tokenized_phrase[1] != "LEFTPAR" or (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR") or tokenized_phrase[3] != "RIGHTPAR":
                 checker_bool = False
-        elif len(tokened_phrase) == 6:
-            if tokened_phrase[1] != "LEFTPAR" or (tokened_phrase[2] != "NUM" and tokened_phrase[2] != "VAR") or tokened_phrase[3] != "COMMA" or (tokened_phrase[4] != "DIRECTION" and tokened_phrase[4] != "ORIENTATION") or tokened_phrase[5] != "RIGHTPAR":
+        elif len(tokenized_phrase) == 6:
+            if tokenized_phrase[1] != "LEFTPAR" or (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR") or tokenized_phrase[3] != "COMMA" or (tokenized_phrase[4] != "DIRECTION" and tokenized_phrase[4] != "ORIENTATION") or tokenized_phrase[5] != "RIGHTPAR":
                 checker_bool = False
         else:
             checker_bool = False
 
-    elif tokened_phrase[0] == "TURN":
+    elif tokenized_phrase[0] == "TURN":
         try:
-            if tokened_phrase[1] != "LEFTPAR" or tokened_phrase[2] != "DIRECTION" or tokened_phrase[3] != "RIGHTPAR":
+            if tokenized_phrase[1] != "LEFTPAR" or tokenized_phrase[2] != "DIRECTION" or tokenized_phrase[3] != "RIGHTPAR":
                 checker_bool = False
         except:
             checker_bool = False
             
-    elif tokened_phrase[0] == "TURNTO":
+    elif tokenized_phrase[0] == "TURNTO":
         try: 
-            if tokened_phrase[1] != "LEFTPAR" or tokened_phrase[2] != "ORIENTATION" or tokened_phrase[3] != "RIGHTPAR":
+            if tokenized_phrase[1] != "LEFTPAR" or tokenized_phrase[2] != "ORIENTATION" or tokenized_phrase[3] != "RIGHTPAR":
                 checker_bool = False
         except:
             checker_bool = False
 
-    elif tokened_phrase[0] == "DROP":
+    elif tokenized_phrase[0] == "DROP":
         try:
-            if tokened_phrase[1] != "LEFTPAR" or (tokened_phrase[2] != "NUM" and tokened_phrase[2] != "VAR") or tokened_phrase[3] != "RIGHTPAR":
+            if tokenized_phrase[1] != "LEFTPAR" or (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR") or tokenized_phrase[3] != "RIGHTPAR":
                     checker_bool = False
         except:
             checker_bool = False
     
-    elif tokened_phrase[0] == "GET":
+    elif tokenized_phrase[0] == "GET":
         try:
-            if tokened_phrase[1] != "LEFTPAR" or (tokened_phrase[2] != "NUM" and tokened_phrase[2] != "VAR") or tokened_phrase[3] != "RIGHTPAR":
+            if tokenized_phrase[1] != "LEFTPAR" or (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR") or tokenized_phrase[3] != "RIGHTPAR":
                 checker_bool = False
         except:
             checker_bool = False
 
-    elif tokened_phrase[0] == "GRAB":
+    elif tokenized_phrase[0] == "GRAB":
         try: 
-            if tokened_phrase[1] != "LEFTPAR" or (tokened_phrase[2] != "NUM" and tokened_phrase[2] != "VAR") or tokened_phrase[3] != "RIGHTPAR":
+            if tokenized_phrase[1] != "LEFTPAR" or (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR") or tokenized_phrase[3] != "RIGHTPAR":
                 checker_bool = False
         except:
             checker_bool = False
     
-    elif tokened_phrase[0] == "LETGO":
+    elif tokenized_phrase[0] == "LETGO":
         try:
-            if tokened_phrase[1] != "LEFTPAR" or (tokened_phrase[2] != "NUM" and tokened_phrase[2] != "VAR") or tokened_phrase[3] != "RIGHTPAR":
+            if tokenized_phrase[1] != "LEFTPAR" or (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR") or tokenized_phrase[3] != "RIGHTPAR":
                 checker_bool = False
         except:
             checker_bool = False
 
-    elif tokened_phrase[0] == "NOP":
+    elif tokenized_phrase[0] == "NOP":
         try:
-            if tokened_phrase[1] != "LEFTPAR" or tokened_phrase[2] != "RIGHTPAR":
+            if tokenized_phrase[1] != "LEFTPAR" or tokenized_phrase[2] != "RIGHTPAR":
                 checker_bool = False
         except:
             checker_bool = False
@@ -148,62 +148,62 @@ def analize_commands(tokened_phrase: list):
     return checker_bool
 
 #SIRVE
-def analize_condition(tokened_phrase: list):
+def analyze_condition(tokenized_phrase: list):
 
     tokens_commands = ["JUMP", "WALK", "LEAP", "TURN", "TURNTO", "DROP", "GET", "GRAB", "LETGO", "NOP", "EQUALS"]
 
     checker_bool = True
     
-    if tokened_phrase[0] == "FACING":
+    if tokenized_phrase[0] == "FACING":
         try: 
-            if tokened_phrase[1] != "LEFTPAR" or tokened_phrase[2] != "ORIENTATION" or tokened_phrase[3] != "RIGHTPAR":
+            if tokenized_phrase[1] != "LEFTPAR" or tokenized_phrase[2] != "ORIENTATION" or tokenized_phrase[3] != "RIGHTPAR":
                 checker_bool = False
         except:
             checker_bool = False
 
-    elif tokened_phrase[0] == "CAN":
-        if (tokened_phrase[1] != "LEFTPAR") or (tokened_phrase[2] not in tokens_commands) or (tokened_phrase[len(tokened_phrase) - 1] != "RIGHTPAR"):
+    elif tokenized_phrase[0] == "CAN":
+        if (tokenized_phrase[1] != "LEFTPAR") or (tokenized_phrase[2] not in tokens_commands) or (tokenized_phrase[len(tokenized_phrase) - 1] != "RIGHTPAR"):
             checker_bool = False
         else:
-            sliced_list = tokened_phrase[2: len(tokened_phrase) - 1]
-            bool_command = analize_commands(sliced_list)
+            sliced_list = tokenized_phrase[2: len(tokenized_phrase) - 1]
+            bool_command = analyze_commands(sliced_list)
             checker_bool = bool_command
     
-    elif tokened_phrase[0] == "NOT":
-        if tokened_phrase[1] != "COLON":
+    elif tokenized_phrase[0] == "NOT":
+        if tokenized_phrase[1] != "COLON":
             checker_bool = False
         else:
-            if tokened_phrase[2] != "FACING" and tokened_phrase[2] != "CAN" and tokened_phrase[2] != "NOT":
+            if tokenized_phrase[2] != "FACING" and tokenized_phrase[2] != "CAN" and tokenized_phrase[2] != "NOT":
                 checker_bool = False
             else:
-                sliced_list = tokened_phrase[2: len(tokened_phrase)]
-                bool_condition = analize_condition(sliced_list)
+                sliced_list = tokenized_phrase[2: len(tokenized_phrase)]
+                bool_condition = analyze_condition(sliced_list)
                 checker_bool = bool_condition
 
     return checker_bool
 
-#SIRVE
-def analize_while(tokened_phrase: list):
+#SIRVE HASTA ACA TOKENIZED
+def analyze_while(tokenized_phrase: list):
 
     tokens_conditions = ["FACING", "CAN", "NOT"]
 
     checker_bool = True
         
-    if "LEFTBRACE" in tokened_phrase:
+    if "LEFTBRACE" in tokenized_phrase:
 
-        brace_position = tokened_phrase.index("LEFTBRACE")
+        brace_position = tokenized_phrase.index("LEFTBRACE")
             
-        sliced_list = tokened_phrase[1: brace_position]
+        sliced_list = tokenized_phrase[1: brace_position]
 
         if sliced_list[0] not in tokens_conditions:
             checker_bool = False
             
         else:
-            checker_bool = analize_condition(sliced_list)
+            checker_bool = analyze_condition(sliced_list)
                 
-            if checker_bool == True and tokened_phrase[len(tokened_phrase) - 1] == "RIGHTBRACE" and tokened_phrase[len(tokened_phrase) - 2] == "RIGHTPAR":
+            if checker_bool == True and tokenized_phrase[len(tokenized_phrase) - 1] == "RIGHTBRACE" and tokenized_phrase[len(tokenized_phrase) - 2] == "RIGHTPAR":
 
-                sliced_list_brace = tokened_phrase[brace_position + 1: len(tokened_phrase)-1]
+                sliced_list_brace = tokenized_phrase[brace_position + 1: len(tokenized_phrase)-1]
 
                 #We create lists to separate code by semicolons
 
@@ -225,7 +225,7 @@ def analize_while(tokened_phrase: list):
                 i = 0
                 while i < len(sub_lists) and checker_bool != False: 
                     little_code = sub_lists[i]
-                    checker_bool = general_analizer(little_code)
+                    checker_bool = general_analyzer(little_code)
 
                     i+= 1
 
@@ -237,32 +237,32 @@ def analize_while(tokened_phrase: list):
     
     return checker_bool
 
-def analize_repeat(tokened_phrase: list):
+def analyze_repeat(tokenized_phrase: list):
 
     checker_bool = True
 
-    if (tokened_phrase[1] != "NUM" and tokened_phrase[1] != "VAR"):
+    if (tokenized_phrase[1] != "NUM" and tokenized_phrase[1] != "VAR"):
 
         checker_bool = False
 
     else:
 
-        if  tokened_phrase[2] != "TIMES":
+        if  tokenized_phrase[2] != "TIMES":
 
             checker_bool = False
 
         else:
             
-            if tokened_phrase[3] != "LEFTBRACE":
+            if tokenized_phrase[3] != "LEFTBRACE":
 
                 checker_bool = False
 
             else:
                 #ver esto en el while xd
-                if tokened_phrase[len(tokened_phrase) - 1] == "RIGHTBRACE" and tokened_phrase[len(tokened_phrase) - 2] == "RIGHTPAR":
-                        brace_position = tokened_phrase.index("RIGHTBRACE")
+                if tokenized_phrase[len(tokenized_phrase) - 1] == "RIGHTBRACE" and tokenized_phrase[len(tokenized_phrase) - 2] == "RIGHTPAR":
+                        brace_position = tokenized_phrase.index("RIGHTBRACE")
 
-                        sliced_list = tokened_phrase[4: brace_position -1]
+                        sliced_list = tokenized_phrase[4: brace_position -1]
 
                         sub_lists = []
                         temporal_sub_list = []
@@ -282,27 +282,27 @@ def analize_repeat(tokened_phrase: list):
 
                         while i < len(sub_lists) and checker_bool != False: 
                             little_code = sub_lists[i]
-                            checker_bool = general_analizer(little_code)
+                            checker_bool = general_analyzer(little_code)
 
                             i+= 1
 
     return checker_bool
 
-def analize_equality(tokened_phrase: list):
+def analyze_equality(tokenized_phrase: list):
 
     checker_bool = True
 
-    if len(tokened_phrase) == 3:
+    if len(tokenized_phrase) == 3:
 
-        if tokened_phrase[1] != "EQUALS":
+        if tokenized_phrase[1] != "EQUALS":
             checker_bool = False
         else:
-            if (tokened_phrase[2] != "NUM" and tokened_phrase[2] != "VAR"):
+            if (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR"):
                 checker_bool = False
 
-    elif tokened_phrase[1] == "LEFTPAR":
+    elif tokenized_phrase[1] == "LEFTPAR":
 
-        sliced_list = tokened_phrase[2:len(tokened_phrase)-2]
+        sliced_list = tokenized_phrase[2:len(tokenized_phrase)-2]
 
         i = 0
 
@@ -320,19 +320,19 @@ def analize_equality(tokened_phrase: list):
     
     return checker_bool
 
-def analyze_conditionals(tokened_phrase: list):
+def analyze_conditionals(tokenized_phrase: list):
     
     checker_bool = True
     
     tokens_conditions = ["FACING", "CAN", "NOT"]
     
-    if "ELSE" not in tokened_phrase:
+    if "ELSE" not in tokenized_phrase:
         checker_bool = False
     else:
-        index_else = tokened_phrase.index("ELSE")
+        index_else = tokenized_phrase.index("ELSE")
         
-        first_part = tokened_phrase[0: index_else]
-        second_part = tokened_phrase[index_else: len(tokened_phrase)]
+        first_part = tokenized_phrase[0: index_else]
+        second_part = tokenized_phrase[index_else: len(tokenized_phrase)]
         
         if first_part[1] not in tokens_conditions or ("LEFTBRACE" not in first_part) or ("LEFTBRACE" not in second_part) or (first_part[len(first_part) -1] != "RIGHTBRACE") or (second_part[len(second_part) -1] != "RIGHTBRACE"):
             checker_bool = False
@@ -341,7 +341,7 @@ def analyze_conditionals(tokened_phrase: list):
             brace_position_first = first_part.index("LEFTBRACE")
             sliced_condition = first_part[1: brace_position_first]
             
-            bool_condition = analize_condition(sliced_condition)
+            bool_condition = analyze_condition(sliced_condition)
             checker_bool = bool_condition
             
             if checker_bool:
@@ -369,7 +369,7 @@ def analyze_conditionals(tokened_phrase: list):
                 i = 0
                 while i < len(sub_lists_one) and checker_bool != False: 
                     little_code = sub_lists_one[i]
-                    checker_bool = general_analizer(little_code)
+                    checker_bool = general_analyzer(little_code)
 
                     i+= 1
                 
@@ -394,15 +394,13 @@ def analyze_conditionals(tokened_phrase: list):
                     i = 0
                     while i < len(sub_lists_two) and checker_bool != False: 
                         little_code = sub_lists_two[i]
-                        checker_bool = general_analizer(little_code)
+                        checker_bool = general_analyzer(little_code)
 
                         i+= 1
     
     return checker_bool
     
-
-                
-            
+def analyze_blocks(tokenized_phrase)
 
 
 
