@@ -173,7 +173,7 @@ def analize_condition(tokened_phrase: list):
         if tokened_phrase[1] != "COLON":
             checker_bool = False
         else:
-            if tokened_phrase[2] != "FACING" and tokened_phrase[2] != "CAN":
+            if tokened_phrase[2] != "FACING" and tokened_phrase[2] != "CAN" and tokened_phrase[2] != "NOT":
                 checker_bool = False
             else:
                 sliced_list = tokened_phrase[2: len(tokened_phrase)]
@@ -403,11 +403,6 @@ def analyze_conditionals(tokened_phrase: list):
 
                 
             
-            
-        
-        
-
-
 
 
 
