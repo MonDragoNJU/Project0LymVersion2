@@ -14,6 +14,8 @@ def general_analizer(tokened_phrase: list):
         return analize_equality(tokened_phrase)
     elif tokened_phrase[0] in tokens_commands:
         return analize_commands(tokened_phrase)
+    elif tokened_phrase[0] == 'IF':
+        return analyze_conditionals(tokened_phrase)
     
     
 #SIRVE
@@ -160,7 +162,7 @@ def analize_condition(tokened_phrase: list):
             checker_bool = False
 
     elif tokened_phrase[0] == "CAN":
-        if (tokened_phrase[1] != "LEFTPAR") and (tokened_phrase[2] not in tokens_commands) and (tokened_phrase[len(tokened_phrase) - 1] != "RIGHTPAR"):
+        if (tokened_phrase[1] != "LEFTPAR") or (tokened_phrase[2] not in tokens_commands) or (tokened_phrase[len(tokened_phrase) - 1] != "RIGHTPAR"):
             checker_bool = False
         else:
             sliced_list = tokened_phrase[2: len(tokened_phrase) - 1]
@@ -317,6 +319,95 @@ def analize_equality(tokened_phrase: list):
         checker_bool = False 
     
     return checker_bool
+
+def analyze_conditionals(tokened_phrase: list):
+    
+    checker_bool = True
+    
+    tokens_conditions = ["FACING", "CAN", "NOT"]
+    
+    if "ELSE" not in tokened_phrase:
+        checker_bool = False
+    else:
+        index_else = tokened_phrase.index("ELSE")
+        
+        first_part = tokened_phrase[0: index_else]
+        second_part = tokened_phrase[index_else: len(tokened_phrase)]
+        
+        if first_part[1] not in tokens_conditions or ("LEFTBRACE" not in first_part) or ("LEFTBRACE" not in second_part) or (first_part[len(first_part) -1] != "RIGHTBRACE") or (second_part[len(second_part) -1] != "RIGHTBRACE"):
+            checker_bool = False
+        else:
+            
+            brace_position_first = first_part.index("LEFTBRACE")
+            sliced_condition = first_part[1: brace_position_first]
+            
+            bool_condition = analize_condition(sliced_condition)
+            checker_bool = bool_condition
+            
+            if checker_bool:
+                
+                brace_position_second = second_part.index("LEFTBRACE")
+                
+                sliced_block_one = first_part[brace_position_first + 1: len(first_part) -1]
+                sliced_block_two = second_part[brace_position_second +1: len(second_part)-1]
+                
+                #FIRST LIST
+                sub_lists_one = []
+                temporal_sub_list_one = []
+
+                for token in sliced_block_one:
+                    if token == "SEMICOL":
+                        sub_lists_one.append(temporal_sub_list_one)
+                        temporal_sub_list_one = []
+                        
+                    else:
+                        temporal_sub_list_one.append(token)
+                    
+                if temporal_sub_list_one:
+                    sub_lists_one.append(temporal_sub_list_one)
+                    
+                i = 0
+                while i < len(sub_lists_one) and checker_bool != False: 
+                    little_code = sub_lists_one[i]
+                    checker_bool = general_analizer(little_code)
+
+                    i+= 1
+                
+                if checker_bool:
+                
+                
+                    #SECOND LIST
+                    sub_lists_two = []
+                    temporal_sub_list_two = []
+
+                    for token in sliced_block_two:
+                        if token == "SEMICOL":
+                            sub_lists_two.append(temporal_sub_list_two)
+                            temporal_sub_list_two = []
+                            
+                        else:
+                            temporal_sub_list_two.append(token)
+                        
+                    if temporal_sub_list_two:
+                        sub_lists_two.append(temporal_sub_list_two)
+                        
+                    i = 0
+                    while i < len(sub_lists_two) and checker_bool != False: 
+                        little_code = sub_lists_two[i]
+                        checker_bool = general_analizer(little_code)
+
+                        i+= 1
+    
+    return checker_bool
+    
+
+                
+            
+            
+        
+        
+
+
 
 
 
