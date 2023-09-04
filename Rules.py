@@ -1,26 +1,31 @@
 def general_analyzer(tokenized_phrase: list):
 
-    tokens_commands = ["JUMP", "WALK", "LEAP", "TURN", "TURNTO", "DROP", "GET", "GRAB", "LETGO", "NOP", "EQUALS"]
+    try:
+
+        tokens_commands = ["JUMP", "WALK", "LEAP", "TURN", "TURNTO", "DROP", "GET", "GRAB", "LETGO", "NOP", "EQUALS"]
+        
+        if tokenized_phrase[0] == "DEFVAR":
+            return analyze_variable(tokenized_phrase)
+        elif tokenized_phrase[0] == "DEFPROC":
+            return analyze_procedure(tokenized_phrase)
+        elif tokenized_phrase[0] == "WHILE":
+            return analyze_while(tokenized_phrase)
+        elif tokenized_phrase[0] == "REPEAT":
+            return analyze_repeat(tokenized_phrase)
+        elif tokenized_phrase[0] == "VAR":
+            return analyze_equality(tokenized_phrase)
+        elif tokenized_phrase[0] in tokens_commands:
+            return analyze_commands(tokenized_phrase)
+        elif tokenized_phrase[0] == 'IF':
+            return analyze_conditionals(tokenized_phrase)
     
-    if tokenized_phrase[0] == "DEFVAR":
-        return analyze_variable(tokenized_phrase)
-    elif tokenized_phrase[0] == "DEFPROC":
-        return analyze_procedure(tokenized_phrase)
-    elif tokenized_phrase[0] == "WHILE":
-        return analyze_while(tokenized_phrase)
-    elif tokenized_phrase[0] == "REPEAT":
-        return analyze_repeat(tokenized_phrase)
-    elif tokenized_phrase[0] == "VAR":
-        return analyze_equality(tokenized_phrase)
-    elif tokenized_phrase[0] in tokens_commands:
-        return analyze_commands(tokenized_phrase)
-    elif tokenized_phrase[0] == 'IF':
-        return analyze_conditionals(tokenized_phrase)
-    
+    except:
+        return False
+
     
 #SIRVE
 def analyze_variable(tokenized_phrase: list):
-    
+
     checker_bool = True
 
     if len(tokenized_phrase) != 3:
@@ -29,7 +34,7 @@ def analyze_variable(tokenized_phrase: list):
         if tokenized_phrase[1] != "VAR" or (tokenized_phrase[2] != "VAR" and tokenized_phrase[2] != "NUM"):
             checker_bool = False
         
-    return checker_bool
+    return (checker_bool)
 
 def analyze_procedure(tokenized_phrase: list):
     
@@ -400,8 +405,6 @@ def analyze_conditionals(tokenized_phrase: list):
     
     return checker_bool
     
-def analyze_blocks(tokenized_phrase)
-
 
 
 #MENSAJE DE COSAS PERSONALIZADAS
