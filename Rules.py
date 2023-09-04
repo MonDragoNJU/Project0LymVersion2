@@ -60,7 +60,21 @@ def analize_procedure(tokened_phrase: list):
     return checker_bool 
 
 def analize_condictional(tokened_phrase: list):
-    pass
+    
+    checker_bool = False
+    
+    conditions = ["NOT", "FACING", "CAN"]
+    
+    if tokened_phrase[0] == "IF":
+        
+        #COMPLETE IF ELSE STRUCTURE
+        
+        if tokened_phrase[1] == "NOT":
+            if (tokened_phrase[2] in conditions) and (tokened_phrase[3] == "LEFTPAR"):
+                if tokened_phrase.count("RIGHTPAR") >= 2 and tokened_phrase.count("RIGHTPAR") % 2 == 0:
+                    
+        
+    
 
 #SIRVE
 def analize_commands(tokened_phrase: list):
