@@ -47,7 +47,7 @@ def analyze_procedure(tokenized_phrase: list):
     if tokenized_phrase[1] != 'VAR':
         checker_bool = False
     else:
-        if tokenized_phrase[2] != "LEFTPAR" and tokenized_phrase[len(tokenized_phrase) - 1] != "RIGHTPAR":
+        if tokenized_phrase[2] != "LEFTPAR" or tokenized_phrase[len(tokenized_phrase) - 1] != "RIGHTPAR":
             checker_bool = False
         else:
             try:
