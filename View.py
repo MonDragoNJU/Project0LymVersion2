@@ -43,11 +43,43 @@ def main():
     """)
         
     file = input("Insert the path of the file you want to read: ")
-    answer = parser.read_file(file)
+    answer = parser.check_all(file)
+    print("")
     
-    print(answer)
-
+    if answer:
+        print("The syntax of the program is correct!")
+        print(r"""
+              (___)
+             /\___/\
+            /       \
+           l  u   u  l
+         --l----*----l--
+            \   w   /     - GOOD JOB!
+              ======
+            /       \ __
+            l        l\ \
+            l        l/ /   
+            l  l l   l /
+            \ ml lm /_/
+                
+        """)
     
+    else:
+        print("The syntax of the program is incorrect")
+        print(r"""
+            / ) 
+           TRY AGAIN 
+    / /  
+    / /               /\ 
+    / /     .-```-.   / ^`-.  
+    \ \    /       \_/  (|) `o 
+    \ \  /   .-.   \\ _  ,--' 
+    \ \/   /   )   \( `^^^  
+        \   \/    (    )  
+        \   )     )  /     
+          ) /__    | (__  
+        (___)))   (__)))
+              """)
     
 main()    
     

@@ -18,6 +18,10 @@ def general_analyzer(tokenized_phrase: list):
             return analyze_commands(tokenized_phrase)
         elif tokenized_phrase[0] == 'IF':
             return analyze_conditionals(tokenized_phrase)
+        elif tokenized_phrase[0] == "LEFTBRACE":
+            return analyze_block(tokenized_phrase)
+        else:
+            return False
     
     except:
         return False
@@ -305,14 +309,14 @@ def analyze_equality(tokenized_phrase: list):
             if (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR"):
                 checker_bool = False
 
-    elif tokenized_phrase[1] == "LEFTPAR":
+    elif tokenized_phrase[1] == "LEFTPAR" and tokenized_phrase[len(tokenized_phrase) - 1] == "RIGHTPAR":
 
-        sliced_list = tokenized_phrase[2:len(tokenized_phrase)-2]
+        sliced_list = tokenized_phrase[2:len(tokenized_phrase)-1]
 
         i = 0
 
         while i < len(sliced_list) and checker_bool:
-            if i%2 == 0:
+            if i % 2 == 0:
                 if sliced_list[i] != "VAR" and sliced_list[i] != "NUM":
                     checker_bool = False
             else:
@@ -404,12 +408,35 @@ def analyze_conditionals(tokenized_phrase: list):
                         i+= 1
     
     return checker_bool
+
+def analyze_block(tokenized_phrase):
     
+    checker_bool = True
+    
+    if tokenized_phrase[len(tokenized_phrase) - 1] != "RIGHTBRACE" or tokenized_phrase[len(tokenized_phrase) - 2] == "SEMICOL":
+        checker_bool = False
+    else:
+        sliced_list = tokenized_phrase[1: len(tokenized_phrase) - 1]
+        
+        sub_lists_one = []
+        temporal_sub_list_one = []
 
+        for token in sliced_list:
+            if token == "SEMICOL":
+                sub_lists_one.append(temporal_sub_list_one)
+                temporal_sub_list_one = []
+                        
+            else:
+                temporal_sub_list_one.append(token)
+                    
+        if temporal_sub_list_one:
+                sub_lists_one.append(temporal_sub_list_one)
+                    
+        i = 0
+        while i < len(sub_lists_one) and checker_bool != False: 
+            little_code = sub_lists_one[i]
+            checker_bool = general_analyzer(little_code)
 
-#MENSAJE DE COSAS PERSONALIZADAS
-# YA -> VAR EQUALS NUM O VAR EQUALS VAR --- 
-# BRACES CON LA MATRIZ
-# CONDITIONALS
-# YA -> SE PUEDE CON FUNCIONES DADAS POR UNO MISMO --. 
-# AL DEFINIR LAS FUNCIONES LA ULTIMA COSITA NO PUEDE TENER UN PUNTO Y COMA
+            i+= 1
+            
+    return checker_bool
