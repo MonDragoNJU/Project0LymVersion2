@@ -1,1 +1,1 @@
-repeat 7 times { turnto ( west ) ; safeWalk (1) ; turnto ( south ) ; safeWalk (1) ; fill ()}
+{turnto(south); turnto(north); turnto(west);}

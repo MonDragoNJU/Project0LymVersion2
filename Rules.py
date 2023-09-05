@@ -75,83 +75,87 @@ def analyze_procedure(tokenized_phrase: list):
 def analyze_commands(tokenized_phrase: list):
 
     checker_bool = True
+    
+    if tokenized_phrase[len(tokenized_phrase) -1] == "RIGHTPAR":
 
-    if tokenized_phrase[0] == "JUMP":
-        try:
-            if tokenized_phrase[1] != "LEFTPAR" or (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR") or tokenized_phrase[3] != "COMMA" or (tokenized_phrase[4] != "NUM" and tokenized_phrase[4] != "VAR") or tokenized_phrase[5] != "RIGHTPAR":
-                checker_bool = False
-        except:
-            checker_bool = False
-
-    elif tokenized_phrase[0] == "WALK":
-
-        if len(tokenized_phrase) == 4:
-            if tokenized_phrase[1] != "LEFTPAR" or (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR") or tokenized_phrase[3] != "RIGHTPAR":
-                checker_bool = False
-        elif len(tokenized_phrase) == 6:
-            if tokenized_phrase[1] != "LEFTPAR" or (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR") or tokenized_phrase[3] != "COMMA" or (tokenized_phrase[4] != "DIRECTION" and tokenized_phrase[4] != "ORIENTATION") or tokenized_phrase[5] != "RIGHTPAR":
-                checker_bool = False
-        else:
-            checker_bool = False
-
-    elif tokenized_phrase[0] == "LEAP":
-        if len(tokenized_phrase) == 4:
-             if tokenized_phrase[1] != "LEFTPAR" or (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR") or tokenized_phrase[3] != "RIGHTPAR":
-                checker_bool = False
-        elif len(tokenized_phrase) == 6:
-            if tokenized_phrase[1] != "LEFTPAR" or (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR") or tokenized_phrase[3] != "COMMA" or (tokenized_phrase[4] != "DIRECTION" and tokenized_phrase[4] != "ORIENTATION") or tokenized_phrase[5] != "RIGHTPAR":
-                checker_bool = False
-        else:
-            checker_bool = False
-
-    elif tokenized_phrase[0] == "TURN":
-        try:
-            if tokenized_phrase[1] != "LEFTPAR" or tokenized_phrase[2] != "DIRECTION" or tokenized_phrase[3] != "RIGHTPAR":
-                checker_bool = False
-        except:
-            checker_bool = False
-            
-    elif tokenized_phrase[0] == "TURNTO":
-        try: 
-            if tokenized_phrase[1] != "LEFTPAR" or tokenized_phrase[2] != "ORIENTATION" or tokenized_phrase[3] != "RIGHTPAR":
-                checker_bool = False
-        except:
-            checker_bool = False
-
-    elif tokenized_phrase[0] == "DROP":
-        try:
-            if tokenized_phrase[1] != "LEFTPAR" or (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR") or tokenized_phrase[3] != "RIGHTPAR":
+        if tokenized_phrase[0] == "JUMP":
+            try:
+                if tokenized_phrase[1] != "LEFTPAR" or (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR") or tokenized_phrase[3] != "COMMA" or (tokenized_phrase[4] != "NUM" and tokenized_phrase[4] != "VAR") or tokenized_phrase[5] != "RIGHTPAR":
                     checker_bool = False
-        except:
-            checker_bool = False
-    
-    elif tokenized_phrase[0] == "GET":
-        try:
-            if tokenized_phrase[1] != "LEFTPAR" or (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR") or tokenized_phrase[3] != "RIGHTPAR":
+            except:
                 checker_bool = False
-        except:
-            checker_bool = False
 
-    elif tokenized_phrase[0] == "GRAB":
-        try: 
-            if tokenized_phrase[1] != "LEFTPAR" or (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR") or tokenized_phrase[3] != "RIGHTPAR":
-                checker_bool = False
-        except:
-            checker_bool = False
-    
-    elif tokenized_phrase[0] == "LETGO":
-        try:
-            if tokenized_phrase[1] != "LEFTPAR" or (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR") or tokenized_phrase[3] != "RIGHTPAR":
-                checker_bool = False
-        except:
-            checker_bool = False
+        elif tokenized_phrase[0] == "WALK":
 
-    elif tokenized_phrase[0] == "NOP":
-        try:
-            if tokenized_phrase[1] != "LEFTPAR" or tokenized_phrase[2] != "RIGHTPAR":
+            if len(tokenized_phrase) == 4:
+                if tokenized_phrase[1] != "LEFTPAR" or (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR") or tokenized_phrase[3] != "RIGHTPAR":
+                    checker_bool = False
+            elif len(tokenized_phrase) == 6:
+                if tokenized_phrase[1] != "LEFTPAR" or (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR") or tokenized_phrase[3] != "COMMA" or (tokenized_phrase[4] != "DIRECTION" and tokenized_phrase[4] != "ORIENTATION") or tokenized_phrase[5] != "RIGHTPAR":
+                    checker_bool = False
+            else:
                 checker_bool = False
-        except:
-            checker_bool = False
+
+        elif tokenized_phrase[0] == "LEAP":
+            if len(tokenized_phrase) == 4:
+                if tokenized_phrase[1] != "LEFTPAR" or (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR") or tokenized_phrase[3] != "RIGHTPAR":
+                    checker_bool = False
+            elif len(tokenized_phrase) == 6:
+                if tokenized_phrase[1] != "LEFTPAR" or (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR") or tokenized_phrase[3] != "COMMA" or (tokenized_phrase[4] != "DIRECTION" and tokenized_phrase[4] != "ORIENTATION") or tokenized_phrase[5] != "RIGHTPAR":
+                    checker_bool = False
+            else:
+                checker_bool = False
+
+        elif tokenized_phrase[0] == "TURN":
+            try:
+                if tokenized_phrase[1] != "LEFTPAR" or tokenized_phrase[2] != "DIRECTION" or tokenized_phrase[3] != "RIGHTPAR":
+                    checker_bool = False
+            except:
+                checker_bool = False
+                
+        elif tokenized_phrase[0] == "TURNTO":
+            try: 
+                if tokenized_phrase[1] != "LEFTPAR" or tokenized_phrase[2] != "ORIENTATION" or tokenized_phrase[3] != "RIGHTPAR":
+                    checker_bool = False
+            except:
+                checker_bool = False
+
+        elif tokenized_phrase[0] == "DROP":
+            try:
+                if tokenized_phrase[1] != "LEFTPAR" or (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR") or tokenized_phrase[3] != "RIGHTPAR":
+                        checker_bool = False
+            except:
+                checker_bool = False
+        
+        elif tokenized_phrase[0] == "GET":
+            try:
+                if tokenized_phrase[1] != "LEFTPAR" or (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR") or tokenized_phrase[3] != "RIGHTPAR":
+                    checker_bool = False
+            except:
+                checker_bool = False
+
+        elif tokenized_phrase[0] == "GRAB":
+            try: 
+                if tokenized_phrase[1] != "LEFTPAR" or (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR") or tokenized_phrase[3] != "RIGHTPAR":
+                    checker_bool = False
+            except:
+                checker_bool = False
+        
+        elif tokenized_phrase[0] == "LETGO":
+            try:
+                if tokenized_phrase[1] != "LEFTPAR" or (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR") or tokenized_phrase[3] != "RIGHTPAR":
+                    checker_bool = False
+            except:
+                checker_bool = False
+
+        elif tokenized_phrase[0] == "NOP":
+            try:
+                if tokenized_phrase[1] != "LEFTPAR" or tokenized_phrase[2] != "RIGHTPAR":
+                    checker_bool = False
+            except:
+                checker_bool = False
+    else:
+        checker_bool = False
 
 
     return checker_bool
