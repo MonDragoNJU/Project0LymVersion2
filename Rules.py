@@ -298,6 +298,9 @@ def analyze_repeat(tokenized_phrase: list):
                             checker_bool = general_analyzer(little_code)
 
                             i+= 1
+                            
+                else:
+                    checker_bool = False
 
     return checker_bool
 
@@ -313,7 +316,7 @@ def analyze_equality(tokenized_phrase: list):
             if (tokenized_phrase[2] != "NUM" and tokenized_phrase[2] != "VAR"):
                 checker_bool = False
 
-    elif tokenized_phrase[1] == "LEFTPAR" and tokenized_phrase[len(tokenized_phrase) - 1] == "RIGHTPAR":
+    elif tokenized_phrase[1] == "LEFTPAR" and tokenized_phrase[len(tokenized_phrase) - 1] == "RIGHTPAR" :
         
         if tokenized_phrase[0] == 'VAR' and tokenized_phrase[1] == "LEFTPAR" and tokenized_phrase[2] == 'RIGHTPAR':
             pass
@@ -420,26 +423,40 @@ def analyze_conditionals(tokenized_phrase: list):
 
 def analyze_block(tokenized_phrase):
     
+    tokens_conditions = ["FACING", "CAN", "NOT"]
+    tokens_commands = ["JUMP", "WALK", "LEAP", "TURN", "TURNTO", "DROP", "GET", "GRAB", "LETGO", "NOP", "EQUALS"]
+    
+    
     checker_bool = True
     
-    if tokenized_phrase[len(tokenized_phrase) - 1] != "RIGHTBRACE" or tokenized_phrase[len(tokenized_phrase) - 2] == "SEMICOL":
+    if tokenized_phrase[len(tokenized_phrase) - 1] != "RIGHTBRACE" or tokenized_phrase[len(tokenized_phrase) - 2] == "SEMICOL" or tokenized_phrase[len(tokenized_phrase) - 2] == "NUM" or tokenized_phrase[len(tokenized_phrase) - 2] == "VAR" or tokenized_phrase[len(tokenized_phrase) - 2] in tokens_commands or tokenized_phrase[len(tokenized_phrase) - 2] in tokens_conditions:
         checker_bool = False
     else:
         sliced_list = tokenized_phrase[1: len(tokenized_phrase) - 1]
         
         sub_lists_one = []
         temporal_sub_list_one = []
+        checker_braces = False
 
-        for token in sliced_list:
-            if token == "SEMICOL":
+        i = 0
+        while i < len(sliced_list):
+            token = sliced_list[i]
+            
+            if token == "LEFTBRACE":
+                checker_braces = True
+            
+            if token == "RIGHTBRACE":
+                checker_braces = False
+                
+            if token == "SEMICOL" and checker_braces == False:
                 sub_lists_one.append(temporal_sub_list_one)
                 temporal_sub_list_one = []
-                        
             else:
                 temporal_sub_list_one.append(token)
-                    
+            i += 1
+
         if temporal_sub_list_one:
-                sub_lists_one.append(temporal_sub_list_one)
+            sub_lists_one.append(temporal_sub_list_one)
                     
         i = 0
         while i < len(sub_lists_one) and checker_bool != False: 
