@@ -1,1 +1,1 @@
-{turnto(south); turnto(north); turnto(west);}
+defProc gonorth ()

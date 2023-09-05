@@ -39,16 +39,20 @@ def check_all(file_name: str):
     
     if bool_parser:
         
-        i= 0
-        while i < len(all_phrases) and final_bool:
-            
-            if all_phrases[i][0] == "DEFPROC":
+        try:
+        
+            i= 0
+            while i < len(all_phrases) and final_bool:
                 
-                if all_phrases[i + 1][0] != "LEFTBRACE":
+                if all_phrases[i][0] == "DEFPROC":
                     
-                    final_bool = False
-            
-            i+=1
+                    if all_phrases[i + 1][0] != "LEFTBRACE":
+                        
+                        final_bool = False
+                
+                i+=1
+        except:
+            final_bool = False
             
     else:
         return bool_parser
