@@ -41,6 +41,8 @@ def main():
     ( o.o )
     > ^ <
     """)
+    
+    print("This is Project 0 by Ana Maria Hernandez and Julian Mondragon")
         
     file = input("Insert the path of the file you want to read: ")
     answer = parser.check_all(file)

@@ -271,7 +271,7 @@ def analyze_repeat(tokenized_phrase: list):
                 if tokenized_phrase[len(tokenized_phrase) - 1] == "RIGHTBRACE" and tokenized_phrase[len(tokenized_phrase) - 2] == "RIGHTPAR":
                         brace_position = tokenized_phrase.index("RIGHTBRACE")
 
-                        sliced_list = tokenized_phrase[4: brace_position -1]
+                        sliced_list = tokenized_phrase[4: brace_position]
 
                         sub_lists = []
                         temporal_sub_list = []
@@ -301,7 +301,7 @@ def analyze_equality(tokenized_phrase: list):
 
     checker_bool = True
 
-    if len(tokenized_phrase) == 3:
+    if len(tokenized_phrase) == 3 and "EQUALS" in tokenized_phrase:
 
         if tokenized_phrase[1] != "EQUALS":
             checker_bool = False
@@ -310,19 +310,24 @@ def analyze_equality(tokenized_phrase: list):
                 checker_bool = False
 
     elif tokenized_phrase[1] == "LEFTPAR" and tokenized_phrase[len(tokenized_phrase) - 1] == "RIGHTPAR":
+        
+        if tokenized_phrase[0] == 'VAR' and tokenized_phrase[1] == "LEFTPAR" and tokenized_phrase[2] == 'RIGHTPAR':
+            pass
+        
+        else:
 
-        sliced_list = tokenized_phrase[2:len(tokenized_phrase)-1]
+            sliced_list = tokenized_phrase[2:len(tokenized_phrase)-1]
 
-        i = 0
+            i = 0
 
-        while i < len(sliced_list) and checker_bool:
-            if i % 2 == 0:
-                if sliced_list[i] != "VAR" and sliced_list[i] != "NUM":
-                    checker_bool = False
-            else:
-                if sliced_list[i] != "COMMA":
-                    checker_bool = False
-            i += 1
+            while i < len(sliced_list) and checker_bool:
+                if i % 2 == 0:
+                    if sliced_list[i] != "VAR" and sliced_list[i] != "NUM":
+                        checker_bool = False
+                else:
+                    if sliced_list[i] != "COMMA":
+                        checker_bool = False
+                i += 1
 
     else:
         checker_bool = False 

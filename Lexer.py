@@ -101,12 +101,12 @@ def t_LEAP(word):
     r'leap'
     return word
 
-def t_TURN(word):
-    r'turn'
-    return word
-
 def t_TURNTO(word):
     r'turnto'
+    return word
+
+def t_TURN(word):
+    r'turn'
     return word
 
 def t_DROP(word):
