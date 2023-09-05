@@ -1,1 +1,1 @@
-defProc gonorth ()
+repeat 7 times {jump(3,3); walk(1, north); lol()}
