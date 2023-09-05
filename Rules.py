@@ -197,7 +197,8 @@ def analyze_condition(tokenized_phrase: list):
 
 #SIRVE HASTA ACA TOKENIZED
 def analyze_while(tokenized_phrase: list):
-
+    
+    tokens_commands = ["JUMP", "WALK", "LEAP", "TURN", "TURNTO", "DROP", "GET", "GRAB", "LETGO", "NOP", "EQUALS"]
     tokens_conditions = ["FACING", "CAN", "NOT"]
 
     checker_bool = True
@@ -213,44 +214,56 @@ def analyze_while(tokenized_phrase: list):
             
         else:
             checker_bool = analyze_condition(sliced_list)
-                
-            if checker_bool == True and tokenized_phrase[len(tokenized_phrase) - 1] == "RIGHTBRACE" and tokenized_phrase[len(tokenized_phrase) - 2] == "RIGHTPAR":
+            
+            if checker_bool == False or tokenized_phrase[len(tokenized_phrase) - 1] != "RIGHTBRACE" or tokenized_phrase[len(tokenized_phrase) - 2] == "SEMICOL" or tokenized_phrase[len(tokenized_phrase) - 2] == "NUM" or tokenized_phrase[len(tokenized_phrase) - 2] == "VAR" or tokenized_phrase[len(tokenized_phrase) - 2] in tokens_commands or tokenized_phrase[len(tokenized_phrase) - 2] in tokens_conditions or tokenized_phrase[len(tokenized_phrase) -2] == "LEFTBRACE" or tokenized_phrase[len(tokenized_phrase) -2] == "LEFTPAR":
+                checker_bool = False
+            else:
 
-                sliced_list_brace = tokenized_phrase[brace_position + 1: len(tokenized_phrase)-1]
+                sliced_list= tokenized_phrase[brace_position + 1: len(tokenized_phrase)-1]
 
                 #We create lists to separate code by semicolons
 
-                sub_lists = []
-                temporal_sub_list = []
-
-                for token in sliced_list_brace:
-                    if token == "SEMICOL":
-                        sub_lists.append(temporal_sub_list)
-                        temporal_sub_list = []
-                        
-                    else:
-                        temporal_sub_list.append(token)
-                    
-                if temporal_sub_list:
-                    sub_lists.append(temporal_sub_list)
-
+                sub_lists= []
+                temporal_sub_list= []
+                checker_braces = False
 
                 i = 0
+                while i < len(sliced_list):
+                    token = sliced_list[i]
+                    
+                    if token == "LEFTBRACE":
+                        checker_braces = True
+                    
+                    if token == "RIGHTBRACE":
+                        checker_braces = False
+                        
+                    if token == "SEMICOL" and checker_braces == False:
+                        sub_lists.append(temporal_sub_list)
+                        temporal_sub_list = []
+                    else:
+                        temporal_sub_list.append(token)
+                    i += 1
+                
+                if temporal_sub_list:
+                    sub_lists.append(temporal_sub_list)
+                    
+                i=0
                 while i < len(sub_lists) and checker_bool != False: 
                     little_code = sub_lists[i]
                     checker_bool = general_analyzer(little_code)
 
                     i+= 1
 
-            else:
-                checker_bool = False
-        
     else:
         checker_bool = False
     
     return checker_bool
 
 def analyze_repeat(tokenized_phrase: list):
+    
+    tokens_conditions = ["FACING", "CAN", "NOT"]
+    tokens_commands = ["JUMP", "WALK", "LEAP", "TURN", "TURNTO", "DROP", "GET", "GRAB", "LETGO", "NOP", "EQUALS"]
+    
 
     checker_bool = True
 
@@ -272,35 +285,44 @@ def analyze_repeat(tokenized_phrase: list):
 
             else:
                 #ver esto en el while xd
-                if tokenized_phrase[len(tokenized_phrase) - 1] == "RIGHTBRACE" and tokenized_phrase[len(tokenized_phrase) - 2] == "RIGHTPAR":
-                        brace_position = tokenized_phrase.index("RIGHTBRACE")
+                if tokenized_phrase[len(tokenized_phrase) - 1] != "RIGHTBRACE" or tokenized_phrase[len(tokenized_phrase) -2] == "LEFTBRACE" or tokenized_phrase[len(tokenized_phrase) - 2] == "SEMICOL" or tokenized_phrase[len(tokenized_phrase) - 2] == "NUM" or tokenized_phrase[len(tokenized_phrase) - 2] == "VAR" or tokenized_phrase[len(tokenized_phrase) - 2] in tokens_commands or tokenized_phrase[len(tokenized_phrase) - 2] in tokens_conditions or tokenized_phrase[len(tokenized_phrase) - 2] == "LEFTPAR":
+                    checker_bool = False
+                else:
+                    
+                        brace_position = len(tokenized_phrase) - 1
 
                         sliced_list = tokenized_phrase[4: brace_position]
 
-                        sub_lists = []
-                        temporal_sub_list = []
-
-                        for token in sliced_list:
-                            if token == "SEMICOL":
-                                sub_lists.append(temporal_sub_list)
-                                temporal_sub_list = []
-                                
-                            else:
-                                temporal_sub_list.append(token)
-                            
-                        if temporal_sub_list:
-                            sub_lists.append(temporal_sub_list)
+                        sub_lists= []
+                        temporal_sub_list= []
+                        checker_braces = False
 
                         i = 0
-
+                        while i < len(sliced_list):
+                            token = sliced_list[i]
+                            
+                            if token == "LEFTBRACE":
+                                checker_braces = True
+                            
+                            if token == "RIGHTBRACE":
+                                checker_braces = False
+                                
+                            if token == "SEMICOL" and checker_braces == False:
+                                sub_lists.append(temporal_sub_list)
+                                temporal_sub_list = []
+                            else:
+                                temporal_sub_list.append(token)
+                            i += 1
+                        
+                        if temporal_sub_list:
+                            sub_lists.append(temporal_sub_list)
+                            
+                        i=0
                         while i < len(sub_lists) and checker_bool != False: 
                             little_code = sub_lists[i]
                             checker_bool = general_analyzer(little_code)
 
                             i+= 1
-                            
-                else:
-                    checker_bool = False
 
     return checker_bool
 
@@ -375,14 +397,27 @@ def analyze_conditionals(tokenized_phrase: list):
                 #FIRST LIST
                 sub_lists_one = []
                 temporal_sub_list_one = []
+                checker_braces_one = False
 
-                for token in sliced_block_one:
-                    if token == "SEMICOL":
+                i = 0
+                while i <len(sliced_block_one):
+                    
+                    token = sliced_block_one[i]
+                    
+                    if token == "LEFTBRACE":
+                        checker_braces_one = True
+                    
+                    if token =="RIGHTBRACE":
+                        checker_braces_one = False
+                        
+                    if token == "SEMICOL" and checker_braces_one == False:
                         sub_lists_one.append(temporal_sub_list_one)
                         temporal_sub_list_one = []
                         
                     else:
                         temporal_sub_list_one.append(token)
+                        
+                    i+=1
                     
                 if temporal_sub_list_one:
                     sub_lists_one.append(temporal_sub_list_one)
@@ -400,14 +435,27 @@ def analyze_conditionals(tokenized_phrase: list):
                     #SECOND LIST
                     sub_lists_two = []
                     temporal_sub_list_two = []
+                    checker_braces_two = False
 
-                    for token in sliced_block_two:
-                        if token == "SEMICOL":
+                    i = 0
+                    while i<len(sliced_block_two):
+                        
+                        token = sliced_block_two[i]
+                        
+                        if token == "LEFTBRACE":
+                            checker_braces_two = True
+                            
+                        if token == "RIGHTBRACE":
+                            checker_braces_two = False
+                        
+                        if token == "SEMICOL" and checker_braces_two == False:
                             sub_lists_two.append(temporal_sub_list_two)
                             temporal_sub_list_two = []
                             
                         else:
                             temporal_sub_list_two.append(token)
+                            
+                        i += 1
                         
                     if temporal_sub_list_two:
                         sub_lists_two.append(temporal_sub_list_two)
@@ -429,7 +477,7 @@ def analyze_block(tokenized_phrase):
     
     checker_bool = True
     
-    if tokenized_phrase[len(tokenized_phrase) - 1] != "RIGHTBRACE" or tokenized_phrase[len(tokenized_phrase) - 2] == "SEMICOL" or tokenized_phrase[len(tokenized_phrase) - 2] == "NUM" or tokenized_phrase[len(tokenized_phrase) - 2] == "VAR" or tokenized_phrase[len(tokenized_phrase) - 2] in tokens_commands or tokenized_phrase[len(tokenized_phrase) - 2] in tokens_conditions:
+    if tokenized_phrase[len(tokenized_phrase) - 1] != "RIGHTBRACE" or tokenized_phrase[len(tokenized_phrase) - 2] == "SEMICOL" or tokenized_phrase[len(tokenized_phrase) - 2] == "NUM" or tokenized_phrase[len(tokenized_phrase) - 2] == "VAR" or tokenized_phrase[len(tokenized_phrase) - 2] in tokens_commands or tokenized_phrase[len(tokenized_phrase) - 2] in tokens_conditions or tokenized_phrase[len(tokenized_phrase) -2] == "LEFTBRACE" or tokenized_phrase[len(tokenized_phrase) -2] == "LEFTPAR":
         checker_bool = False
     else:
         sliced_list = tokenized_phrase[1: len(tokenized_phrase) - 1]

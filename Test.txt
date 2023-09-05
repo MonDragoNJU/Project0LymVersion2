@@ -1,1 +1,1 @@
-{ozuna(3,4,4,4,4,4,4); jump(3,3)}
+if not: can(walk(1, north)) {repeat 7 times {walk(1,north)} else{walk(1, west)}
